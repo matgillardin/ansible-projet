@@ -1,0 +1,26 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for webdb_infrastructure
+# Vvriables générales
+project_name: "webdb_project"
+
+# variables Apache
+apache_http_port: 80
+apache_vhost_name: "test1.com"
+apache_document_root: "/var/www/{{ apache_vhost_name }}"
+
+# variables Docker
+docker_network_name: "webdb_network"
+
+# variables MariaDB
+mariadb_container_name: "mariadb_container"
+mariadb_image: "mariadb:latest"
+mariadb_port: 3306
+mariadb_database: "webdb"
+mariadb_user: "webuser"
+# mdp
+mariadb_password: "Tigrou007"
+mariadb_root_password: "Tigrou007"
+
+# variables application
+app_user: "www-data"

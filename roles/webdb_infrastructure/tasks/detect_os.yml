@@ -1,0 +1,49 @@
+---
+# Détection de la distribution et définition des variables spécifiques
+- name: Display detected OS
+  debug:
+    msg: "Detected OS: {{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
+  tags:
+    - always
+
+- name: Set variables for Debian-based systems
+  set_fact:
+    packages_docker: "{{ debian_packages.docker }}"
+    packages_apache: "{{ debian_packages.apache }}"
+    apache_service: "{{ debian_apache_service }}"
+    apache_config_path: "{{ debian_apache_config_path }}"
+    app_user: "{{ debian_apache_user }}"
+    package_manager: "apt"
+  when: ansible_facts['distribution'] == "Debian" or ansible_facts['distribution'] == "Ubuntu"
+  tags:
+    - always
+
+- name: Set variables for Fedora-based systems
+  set_fact:
+    packages_docker: "{{ fedora_packages.docker }}"
+    packages_apache: "{{ fedora_packages.apache }}"
+    apache_service: "{{ fedora_apache_service }}"
+    apache_config_path: "{{ fedora_apache_config_path }}"
+    app_user: "{{ fedora_apache_user }}"
+    package_manager: "dnf"
+  when: ansible_facts['distribution'] == "Fedora" or ansible_facts['distribution'] == "RedHat" or ansible_facts['distribution'] == "CentOS"
+  tags:
+    - always
+
+- name: Fail if OS is not supported
+  fail:
+    msg: "This role only supports Debian, Ubuntu, Fedora, RedHat, and CentOS distributions"
+  when:
+    - ansible_facts['distribution'] not in ["Debian", "Ubuntu", "Fedora", "RedHat", "CentOS"]
+  tags:
+    - always
+
+- name: Display selected configuration
+  debug:
+    msg:
+      - "Package manager: {{ package_manager }}"
+      - "Apache service: {{ apache_service }}"
+      - "Apache config path: {{ apache_config_path }}"
+      - "App user: {{ app_user }}"
+  tags:
+    - always

@@ -1,0 +1,5 @@
+---
+- name: Test OS Detection
+  hosts: all
+  tasks:
+    - include_tasks: roles/webdb_infrastructure/tasks/detect_os.yml

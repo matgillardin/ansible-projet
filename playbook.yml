@@ -1,0 +1,6 @@
+---
+- name: Deploy Web and Database Infrastructure
+  hosts: all
+  become: true
+  roles:
+    - webdb_infrastructure

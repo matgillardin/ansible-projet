@@ -1,0 +1,36 @@
+---
+# Variables publiques pour tous les hôtes
+
+# Configuration Ansible
+ansible_user: etu54847
+ansible_python_interpreter: /usr/bin/python3
+ansible_port: 22
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+
+# Référence au mot de passe sudo chiffré
+ansible_become_pass: "{{ vault_ansible_become_pass }}"
+
+# Variables générales du projet
+project_name: "webdb_project"
+
+# Variables Apache
+apache_http_port: 80
+apache_vhost_name: "test1.com"
+apache_document_root: "/var/www/{{ apache_vhost_name }}"
+
+# Variables Docker
+docker_network_name: "webdb_network"
+
+# Variables MariaDB
+mariadb_container_name: "mariadb_container"
+mariadb_image: "mariadb:latest"
+mariadb_port: 3306
+mariadb_database: "webdb"
+mariadb_user: "webuser"
+
+# Référence aux mots de passe chiffrés
+mariadb_password: "{{ vault_mariadb_password }}"
+mariadb_root_password: "{{ vault_mariadb_root_password }}"
+
+# Variables application
+app_user: "www-data"

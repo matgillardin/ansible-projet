@@ -1,0 +1,28 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for webdb_infrastructure
+- name: Detect Operating System
+  include_tasks: detect_os.yml
+  tags:
+    - always
+
+- name: Install Docker
+  include_tasks: install_docker.yml
+  tags:
+    - docker
+    - database
+
+- name: Deploy Database Container
+  include_tasks: deploy_database.yml
+  tags:
+    - database
+
+- name: Install Web Server
+  include_tasks: install_webserver.yml
+  tags:
+    - webserver
+
+- name: Deploy Web Application
+  include_tasks: deploy_webapp.yml
+  tags:
+    - webapp
