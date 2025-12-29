@@ -19,25 +19,13 @@
   notify: Restart Apache
   tags: [webapp]
 
-- name: Deploy vhost configuration (Debian)
+- name: Deploy vhost configuration
   template:
     src: vhost.conf
     dest: "{{ apache_config_path }}/{{ apache_vhost_name }}.conf"
     owner: root
     group: root
     mode: '0644'
-  when: package_manager == "apt"
-  notify: Restart Apache
-  tags: [webapp]
-
-- name: Deploy vhost configuration (Fedora)
-  template:
-    src: vhost_fedora.conf
-    dest: "{{ apache_config_path }}/{{ apache_vhost_name }}.conf"
-    owner: root
-    group: root
-    mode: '0644'
-  when: package_manager == "dnf"
   notify: Restart Apache
   tags: [webapp]
 

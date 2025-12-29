@@ -1,18 +1,17 @@
 ---
-# Déploiement du conteneur MariaDB
 - name: Pull MariaDB image
   command: docker pull {{ mariadb_image }}
   register: pull_result
   changed_when: "'Downloaded' in pull_result.stdout"
   tags: [database]
 
-- name: Check if MariaDB container exists
+- name: Check if container exists
   command: docker ps -a -q -f name={{ mariadb_container_name }}
   register: container_exists
   changed_when: false
   tags: [database]
 
-- name: Create and start MariaDB container
+- name: Create MariaDB container
   command: >
     docker run -d
     --name {{ mariadb_container_name }}
@@ -24,36 +23,34 @@
     -e MYSQL_PASSWORD={{ mariadb_password }}
     -v mariadb_data:/var/lib/mysql
     {{ mariadb_image }}
-  register: container_result
   when: container_exists.stdout == ""
   tags: [database]
 
-- name: Ensure MariaDB container is running
+- name: Ensure container is running
   command: docker start {{ mariadb_container_name }}
-  register: start_result
-  changed_when: mariadb_container_name in start_result.stdout
+  changed_when: false
   failed_when: false
   tags: [database]
 
-- name: Wait for MariaDB to be ready
-  wait_for:
-    host: localhost
-    port: "{{ mariadb_port }}"
-    delay: 5
-    timeout: 60
+- name: Wait for MariaDB ready
+  shell: docker exec {{ mariadb_container_name }} mariadb -u {{ mariadb_user }} -p{{ mariadb_password }} {{ mariadb_database }} -e "SELECT 1;"
+  register: mysql_ready
+  until: mysql_ready.rc == 0
+  retries: 30
+  delay: 2
+  changed_when: false
   tags: [database]
 
-# Configuration du firewall pour permettre les connexions distantes
-- name: Open MariaDB port in firewall (Debian/UFW)
+- name: Open firewall (Debian)
   ufw:
     rule: allow
     port: "{{ mariadb_port }}"
     proto: tcp
   when: package_manager == "apt"
   failed_when: false
-  tags: [database, firewall]
+  tags: [database]
 
-- name: Open MariaDB port in firewall (Fedora/firewalld)
+- name: Open firewall (Fedora)
   firewalld:
     port: "{{ mariadb_port }}/tcp"
     permanent: yes
@@ -61,44 +58,22 @@
     immediate: yes
   when: package_manager == "dnf"
   failed_when: false
-  tags: [database, firewall]
+  tags: [database]
 
-# Copie du script SQL d'initialisation
-- name: Copy SQL init script to remote
-  copy:
-    src: init_db.sql
-    dest: /tmp/init_db.sql
-    mode: '0644'
-  tags: [database, init]
+- name: Copy and execute SQL init script
+  block:
+    - name: Copy SQL script
+      copy:
+        src: init_db.sql
+        dest: /tmp/init_db.sql
+        mode: '0644'
 
-# Attendre que MariaDB soit vraiment prêt à accepter les connexions
-- name: Wait for MariaDB to accept connections
-  shell: |
-    docker exec {{ mariadb_container_name }} mariadb -u {{ mariadb_user }} -p{{ mariadb_password }} -e "SELECT 1;" {{ mariadb_database }}
-  register: mysql_ready
-  until: mysql_ready.rc == 0
-  retries: 30
-  delay: 2
-  changed_when: false
-  tags: [database, init]
+    - name: Execute SQL script
+      shell: docker exec -i {{ mariadb_container_name }} mariadb -u {{ mariadb_user }} -p{{ mariadb_password }} {{ mariadb_database }} < /tmp/init_db.sql
+      failed_when: false
 
-# Exécution du script d'initialisation
-- name: Initialize database with sample data
-  shell: |
-    docker exec -i {{ mariadb_container_name }} mariadb -u {{ mariadb_user }} -p{{ mariadb_password }} {{ mariadb_database }} < /tmp/init_db.sql
-  register: init_result
-  changed_when: init_result.rc == 0
-  failed_when: false
-  tags: [database, init]
-
-- name: Display database initialization result
-  debug:
-    msg: "Database initialization: {{ 'SUCCESS' if init_result.rc == 0 else 'Script may have already been executed or there was an error' }}"
-  tags: [database, init]
-
-# Nettoyage
-- name: Remove temporary SQL file
-  file:
-    path: /tmp/init_db.sql
-    state: absent
-  tags: [database, init]
+    - name: Cleanup
+      file:
+        path: /tmp/init_db.sql
+        state: absent
+  tags: [database]
