@@ -1,0 +1,50 @@
+---
+# Déploiement de l'application web
+- name: Create document root directory
+  file:
+    path: "{{ apache_document_root }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'
+  tags: [webapp]
+
+- name: Deploy index.php
+  template:
+    src: index.php
+    dest: "{{ apache_document_root }}/index.php"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0644'
+  notify: Restart Apache
+  tags: [webapp]
+
+- name: Deploy vhost configuration (Debian)
+  template:
+    src: vhost.conf
+    dest: "{{ apache_config_path }}/{{ apache_vhost_name }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: package_manager == "apt"
+  notify: Restart Apache
+  tags: [webapp]
+
+- name: Deploy vhost configuration (Fedora)
+  template:
+    src: vhost_fedora.conf
+    dest: "{{ apache_config_path }}/{{ apache_vhost_name }}.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  when: package_manager == "dnf"
+  notify: Restart Apache
+  tags: [webapp]
+
+- name: Enable site (Debian only)
+  command: a2ensite {{ apache_vhost_name }}.conf
+  when: package_manager == "apt"
+  register: enable_site
+  changed_when: "'Enabling site' in enable_site.stdout"
+  notify: Restart Apache
+  tags: [webapp]

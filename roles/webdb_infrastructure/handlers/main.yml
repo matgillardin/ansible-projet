@@ -1,3 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
-# handlers file for webdb_infrastructure
+# Handlers pour le rôle webdb_infrastructure
+- name: Restart Apache
+  service:
+    name: "{{ apache_service }}"
+    state: restarted

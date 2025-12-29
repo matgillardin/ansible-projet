@@ -1,0 +1,40 @@
+---
+# Déploiement du conteneur MariaDB
+- name: Pull MariaDB image
+  command: docker pull {{ mariadb_image }}
+  register: pull_result
+  changed_when: "'Downloaded' in pull_result.stdout"
+  tags: [database]
+
+- name: Create and start MariaDB container
+  command: >
+    docker run -d
+    --name {{ mariadb_container_name }}
+    --restart always
+    --network {{ docker_network_name }}
+    -p {{ mariadb_port }}:3306
+    -e MYSQL_ROOT_PASSWORD={{ mariadb_root_password }}
+    -e MYSQL_DATABASE={{ mariadb_database }}
+    -e MYSQL_USER={{ mariadb_user }}
+    -e MYSQL_PASSWORD={{ mariadb_password }}
+    -v mariadb_data:/var/lib/mysql
+    {{ mariadb_image }}
+  register: container_result
+  changed_when: container_result.rc == 0
+  failed_when: container_result.rc != 0 and 'already in use' not in container_result.stderr
+  tags: [database]
+
+- name: Ensure MariaDB container is running
+  command: docker start {{ mariadb_container_name }}
+  register: start_result
+  changed_when: mariadb_container_name in start_result.stdout
+  failed_when: false
+  tags: [database]
+
+- name: Wait for MariaDB to be ready
+  wait_for:
+    host: localhost
+    port: "{{ mariadb_port }}"
+    delay: 5
+    timeout: 60
+  tags: [database]

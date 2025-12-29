@@ -8,21 +8,25 @@
 
 - name: Install Docker
   include_tasks: install_docker.yml
+  when: server_role == "database"
   tags:
     - docker
     - database
 
 - name: Deploy Database Container
   include_tasks: deploy_database.yml
+  when: server_role == "database"
   tags:
     - database
 
 - name: Install Web Server
   include_tasks: install_webserver.yml
+  when: server_role == "webserver"
   tags:
     - webserver
 
 - name: Deploy Web Application
   include_tasks: deploy_webapp.yml
+  when: server_role == "webserver"
   tags:
     - webapp

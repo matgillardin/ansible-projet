@@ -1,77 +1,41 @@
 ---
 # Installation de Docker sur Debian ou Fedora
-- name: Update package cache (Debian/Ubuntu)
+- name: Update package cache
   apt:
     update_cache: yes
     cache_valid_time: 3600
   when: package_manager == "apt"
-  tags:
-    - docker
+  tags: [docker]
 
-- name: Update package cache (Fedora/RedHat)
+- name: Update package cache (Fedora)
   dnf:
     update_cache: yes
   when: package_manager == "dnf"
-  tags:
-    - docker
+  tags: [docker]
 
 - name: Install Docker packages
   package:
     name: "{{ packages_docker }}"
     state: present
-  tags:
-    - docker
+  tags: [docker]
 
-- name: Ensure Docker service is started and enabled
+- name: Start and enable Docker service
   service:
     name: docker
     state: started
     enabled: yes
-  tags:
-    - docker
+  tags: [docker]
 
-- name: Add user to docker group (Debian)
+- name: Add user to docker group
   user:
     name: "{{ ansible_user }}"
     groups: docker
     append: yes
-  when: package_manager == "apt"
-  tags:
-    - docker
+  tags: [docker]
 
-- name: Add user to docker group (Fedora)
-  user:
-    name: "{{ ansible_user }}"
-    groups: docker
-    append: yes
-  when: package_manager == "dnf"
-  tags:
-    - docker
-
-- name: Create Docker network for database connectivity
-  community.docker.docker_network:
-    name: "{{ docker_network_name }}"
-    state: present
-  tags:
-    - docker
-
-- name: Wait for Docker to be ready
-  wait_for:
-    path: /var/run/docker.sock
-    state: present
-    timeout: 30
-  tags:
-    - docker
-
-- name: Verify Docker installation
-  command: docker --version
-  register: docker_version
-  changed_when: false
-  tags:
-    - docker
-
-- name: Display Docker version
-  debug:
-    msg: "Docker installed: {{ docker_version.stdout }}"
-  tags:
-    - docker
+- name: Create Docker network
+  command: docker network create {{ docker_network_name }}
+  register: network_result
+  changed_when: network_result.rc == 0
+  failed_when: network_result.rc != 0 and 'already exists' not in network_result.stderr
+  tags: [docker]

@@ -1,0 +1,27 @@
+---
+# Installation d'Apache sur Debian ou Fedora
+- name: Update package cache (Debian)
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: package_manager == "apt"
+  tags: [webserver]
+
+- name: Update package cache (Fedora)
+  dnf:
+    update_cache: yes
+  when: package_manager == "dnf"
+  tags: [webserver]
+
+- name: Install Apache packages
+  package:
+    name: "{{ packages_apache }}"
+    state: present
+  tags: [webserver]
+
+- name: Start and enable Apache service
+  service:
+    name: "{{ apache_service }}"
+    state: started
+    enabled: yes
+  tags: [webserver]
