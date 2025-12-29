@@ -32,10 +32,3 @@
     groups: docker
     append: yes
   tags: [docker]
-
-- name: Create Docker network
-  command: docker network create {{ docker_network_name }}
-  register: network_result
-  changed_when: network_result.rc == 0
-  failed_when: network_result.rc != 0 and 'already exists' not in network_result.stderr
-  tags: [docker]

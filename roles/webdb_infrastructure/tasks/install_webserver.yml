@@ -25,3 +25,11 @@
     state: started
     enabled: yes
   tags: [webserver]
+
+- name: Allow Apache to connect to network (SELinux)
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+  when: package_manager == "dnf"
+  tags: [webserver]
