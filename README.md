@@ -335,3 +335,59 @@ ansible-playbook playbook.yml --limit webservers
 - [Documentation MariaDB](https://mariadb.com/kb/en/)
 - [Documentation Apache](https://httpd.apache.org/docs/)
 
+Général
+
+Documentation Ansible - Documentation officielle complète
+Guide d'installation Ansible
+Guide de l'utilisateur Ansible
+Ansible Getting Started
+
+Modules utilisés dans ce projet
+
+ansible.builtin.apt - Gestion des paquets Debian/Ubuntu
+ansible.builtin.dnf - Gestion des paquets Fedora/RedHat
+ansible.builtin.package - Gestion générique des paquets
+ansible.builtin.service - Gestion des services
+ansible.builtin.command - Exécution de commandes
+ansible.builtin.shell - Exécution de commandes shell
+ansible.builtin.copy - Copie de fichiers
+ansible.builtin.file - Gestion des fichiers et répertoires
+ansible.builtin.template - Déploiement de templates Jinja2
+ansible.builtin.user - Gestion des utilisateurs
+ansible.builtin.set_fact - Définition de variables
+ansible.builtin.debug - Affichage de debug
+ansible.builtin.fail - Arrêt avec erreur
+ansible.builtin.include_tasks - Inclusion de tâches
+community.general.ufw - Gestion du firewall UFW
+ansible.posix.firewalld - Gestion du firewall firewalld
+ansible.posix.seboolean - Gestion des booléens SELinux
+
+Fonctionnalités Ansible
+
+Playbooks - Introduction aux playbooks
+Rôles - Structure et utilisation des rôles
+Handlers - Gestion des handlers
+Variables - Gestion des variables
+Facts - Utilisation des facts
+Conditionals (when) - Conditions d'exécution
+Loops - Boucles et itérations
+Blocks - Groupement de tâches
+Tags - Utilisation des tags
+Ansible Vault - Chiffrement des secrets
+Inventaires - Gestion des inventaires
+Group Variables - Variables de groupe
+Privilege Escalation (become) - Élévation de privilèges
+
+Templates Jinja2
+
+Templates Jinja2 dans Ansible
+Documentation Jinja2 officielle
+Filtres Jinja2 dans Ansible
+
+Ligne de commande
+
+ansible-playbook - Commande ansible-playbook
+ansible-vault - Commande ansible-vault
+ansible - Commande ansible (ad-hoc)
+
+
