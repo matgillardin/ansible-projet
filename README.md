@@ -144,9 +144,6 @@ roles/webdb_infrastructure/
 ├── templates/
 │   ├── index.php
 │   └── vhost.conf
-├── tests/
-│   ├── inventory
-│   └── test.yml
 └── vars/
     └── main.yml
 ```
@@ -337,3 +334,4 @@ ansible-playbook playbook.yml --limit webservers
 - [Documentation Docker](https://docs.docker.com/)
 - [Documentation MariaDB](https://mariadb.com/kb/en/)
 - [Documentation Apache](https://httpd.apache.org/docs/)
+
