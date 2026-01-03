@@ -327,67 +327,153 @@ ansible-playbook playbook.yml --limit webservers
 **Mathieu Gillardin** - Henallux - Projet TI331
 
 ---
+## 📚 Ressources et Documentation
 
-## Ressources
+### Documentation Ansible Officielle
 
-- [Documentation Ansible](https://docs.ansible.com/)
-- [Documentation Docker](https://docs.docker.com/)
-- [Documentation MariaDB](https://mariadb.com/kb/en/)
-- [Documentation Apache](https://httpd.apache.org/docs/)
+#### Général
+- [Documentation Ansible](https://docs.ansible.com/) - Documentation officielle complète
 
-Général
+#### Modules utilisés dans ce projet
+- [ansible.builtin.apt](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html) - Gestion des paquets Debian/Ubuntu
+- [ansible.builtin.dnf](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/dnf_module.html) - Gestion des paquets Fedora/RedHat
+- [ansible.builtin.package](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html) - Gestion générique des paquets
+- [ansible.builtin.service](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/service_module.html) - Gestion des services
+- [ansible.builtin.command](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html) - Exécution de commandes
+- [ansible.builtin.shell](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/shell_module.html) - Exécution de commandes shell
+- [ansible.builtin.copy](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/copy_module.html) - Copie de fichiers
+- [ansible.builtin.file](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html) - Gestion des fichiers et répertoires
+- [ansible.builtin.template](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html) - Déploiement de templates Jinja2
+- [ansible.builtin.user](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html) - Gestion des utilisateurs
+- [ansible.builtin.set_fact](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/set_fact_module.html) - Définition de variables
+- [ansible.builtin.debug](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html) - Affichage de debug
+- [ansible.builtin.fail](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/fail_module.html) - Arrêt avec erreur
+- [ansible.builtin.include_tasks](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/include_tasks_module.html) - Inclusion de tâches
+- [community.general.ufw](https://docs.ansible.com/ansible/latest/collections/community/general/ufw_module.html) - Gestion du firewall UFW
+- [ansible.posix.firewalld](https://docs.ansible.com/ansible/latest/collections/ansible/posix/firewalld_module.html) - Gestion du firewall firewalld
+- [ansible.posix.seboolean](https://docs.ansible.com/ansible/latest/collections/ansible/posix/seboolean_module.html) - Gestion des booléens SELinux
 
-Documentation Ansible - Documentation officielle complète
-Guide d'installation Ansible
-Guide de l'utilisateur Ansible
-Ansible Getting Started
+#### Fonctionnalités Ansible
+- [Playbooks](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_intro.html) - Introduction aux playbooks
+- [Rôles](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html) - Structure et utilisation des rôles
+- [Handlers](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_handlers.html) - Gestion des handlers
+- [Variables](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html) - Gestion des variables
+- [Facts](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_vars_facts.html) - Utilisation des facts
+- [Conditionals (when)](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_conditionals.html) - Conditions d'exécution
+- [Loops](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_loops.html) - Boucles et itérations
+- [Blocks](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_blocks.html) - Groupement de tâches
+- [Tags](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tags.html) - Utilisation des tags
+- [Ansible Vault](https://docs.ansible.com/ansible/latest/vault_guide/index.html) - Chiffrement des secrets
+- [Inventaires](https://docs.ansible.com/ansible/latest/inventory_guide/index.html) - Gestion des inventaires
+- [Group Variables](https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html#organizing-host-and-group-variables) - Variables de groupe
+- [Privilege Escalation (become)](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html) - Élévation de privilèges
 
-Modules utilisés dans ce projet
+#### Templates Jinja2
+- [Templates Jinja2 dans Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_templating.html)
+- [Documentation Jinja2 officielle](https://jinja.palletsprojects.com/en/3.1.x/)
+- [Filtres Jinja2 dans Ansible](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_filters.html)
 
-ansible.builtin.apt - Gestion des paquets Debian/Ubuntu
-ansible.builtin.dnf - Gestion des paquets Fedora/RedHat
-ansible.builtin.package - Gestion générique des paquets
-ansible.builtin.service - Gestion des services
-ansible.builtin.command - Exécution de commandes
-ansible.builtin.shell - Exécution de commandes shell
-ansible.builtin.copy - Copie de fichiers
-ansible.builtin.file - Gestion des fichiers et répertoires
-ansible.builtin.template - Déploiement de templates Jinja2
-ansible.builtin.user - Gestion des utilisateurs
-ansible.builtin.set_fact - Définition de variables
-ansible.builtin.debug - Affichage de debug
-ansible.builtin.fail - Arrêt avec erreur
-ansible.builtin.include_tasks - Inclusion de tâches
-community.general.ufw - Gestion du firewall UFW
-ansible.posix.firewalld - Gestion du firewall firewalld
-ansible.posix.seboolean - Gestion des booléens SELinux
+#### Ligne de commande
+- [ansible-playbook](https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html) - Commande ansible-playbook
+- [ansible-vault](https://docs.ansible.com/ansible/latest/cli/ansible-vault.html) - Commande ansible-vault
+- [ansible](https://docs.ansible.com/ansible/latest/cli/ansible.html) - Commande ansible (ad-hoc)
 
-Fonctionnalités Ansible
+---
 
-Playbooks - Introduction aux playbooks
-Rôles - Structure et utilisation des rôles
-Handlers - Gestion des handlers
-Variables - Gestion des variables
-Facts - Utilisation des facts
-Conditionals (when) - Conditions d'exécution
-Loops - Boucles et itérations
-Blocks - Groupement de tâches
-Tags - Utilisation des tags
-Ansible Vault - Chiffrement des secrets
-Inventaires - Gestion des inventaires
-Group Variables - Variables de groupe
-Privilege Escalation (become) - Élévation de privilèges
+### Documentation Docker Officielle
 
-Templates Jinja2
+- [Documentation Docker](https://docs.docker.com/) - Documentation officielle
+- [Installation Docker sur Debian](https://docs.docker.com/engine/install/debian/)
+- [Installation Docker sur Fedora](https://docs.docker.com/engine/install/fedora/)
+- [Docker CLI Reference](https://docs.docker.com/engine/reference/commandline/docker/)
+- [docker run](https://docs.docker.com/engine/reference/commandline/run/) - Création de conteneurs
+- [docker pull](https://docs.docker.com/engine/reference/commandline/pull/) - Téléchargement d'images
+- [docker ps](https://docs.docker.com/engine/reference/commandline/ps/) - Liste des conteneurs
+- [docker exec](https://docs.docker.com/engine/reference/commandline/exec/) - Exécution dans un conteneur
+- [docker start](https://docs.docker.com/engine/reference/commandline/start/) - Démarrage de conteneurs
+- [Volumes Docker](https://docs.docker.com/storage/volumes/) - Persistance des données
+- [Réseau Docker](https://docs.docker.com/network/) - Configuration réseau
+- [Mode host network](https://docs.docker.com/network/host/) - Réseau en mode host
 
-Templates Jinja2 dans Ansible
-Documentation Jinja2 officielle
-Filtres Jinja2 dans Ansible
+---
 
-Ligne de commande
+### Documentation MariaDB Officielle
 
-ansible-playbook - Commande ansible-playbook
-ansible-vault - Commande ansible-vault
-ansible - Commande ansible (ad-hoc)
+- [Documentation MariaDB](https://mariadb.com/kb/en/) - Knowledge Base officielle
+- [Image Docker MariaDB](https://hub.docker.com/_/mariadb) - Docker Hub officiel
+- [Variables d'environnement MariaDB Docker](https://mariadb.com/kb/en/mariadb-server-docker-official-image-environment-variables/)
+- [GRANT](https://mariadb.com/kb/en/grant/)
+- [Gestion des utilisateurs](https://mariadb.com/kb/en/account-management-sql-commands/)
+
+---
+
+### Documentation Apache Officielle
+
+- [Documentation Apache HTTP Server](https://httpd.apache.org/docs/2.4/)
+- [Configuration des VirtualHosts](https://httpd.apache.org/docs/2.4/vhosts/)
+- [Directive VirtualHost](https://httpd.apache.org/docs/2.4/mod/core.html#virtualhost)
+- [Directive DocumentRoot](https://httpd.apache.org/docs/2.4/mod/core.html#documentroot)
+- [Directive ServerName](https://httpd.apache.org/docs/2.4/mod/core.html#servername)
+- [Directive Directory](https://httpd.apache.org/docs/2.4/mod/core.html#directory)
+- [Directive AllowOverride](https://httpd.apache.org/docs/2.4/mod/core.html#allowoverride)
+- [Directive Require](https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require)
+- [Logs Apache](https://httpd.apache.org/docs/2.4/logs.html)
+- [mod_php](https://cwiki.apache.org/confluence/display/HTTPD/PHP)
+- [a2ensite (Debian)](https://manpages.debian.org/bullseye/apache2/a2ensite.8.en.html)
+
+---
+
+### Documentation PHP Officielle
+
+- [Documentation PHP](https://www.php.net/docs.php) - Documentation officielle
+- [Extension MySQLi](https://www.php.net/manual/en/book.mysqli.php) - Connexion MySQL/MariaDB
+- [mysqli::__construct](https://www.php.net/manual/en/mysqli.construct.php) - Connexion à la base
+- [mysqli::query](https://www.php.net/manual/en/mysqli.query.php) - Exécution de requêtes
+- [mysqli_result::fetch_assoc](https://www.php.net/manual/en/mysqli-result.fetch-assoc.php) - Récupération des résultats
+- [htmlspecialchars](https://www.php.net/manual/en/function.htmlspecialchars.php) - Échappement HTML
+- [try-catch](https://www.php.net/manual/en/language.exceptions.php) - Gestion des exceptions
+
+---
+
+### Documentation Firewall
+
+#### UFW (Debian/Ubuntu)
+- [Documentation UFW Ubuntu](https://help.ubuntu.com/community/UFW)
+- [Manuel UFW](https://manpages.ubuntu.com/manpages/jammy/en/man8/ufw.8.html)
+- [Guide UFW DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-22-04)
+
+#### firewalld (Fedora/RedHat)
+- [Documentation firewalld](https://firewalld.org/documentation/)
+- [Guide firewalld RedHat](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/using-and-configuring-firewalld_configuring-and-managing-networking)
+- [firewall-cmd](https://firewalld.org/documentation/man-pages/firewall-cmd.html)
+
+---
+
+### Documentation SELinux
+
+- [Documentation SELinux RedHat](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/index)
+- [SELinux et Apache](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/configuring-selinux-for-applications-and-services-with-non-standard-configurations_using-selinux)
+- [httpd_can_network_connect](https://linux.die.net/man/8/httpd_selinux)
+- [setsebool](https://man7.org/linux/man-pages/man8/setsebool.8.html)
+
+---
+
+### Documentation Systèmes d'exploitation
 
 
+---
+
+### Tuto(Non-officiels)
+
+#### Ansible
+- [Ansible for DevOps (Jeff Geerling)](https://www.ansiblefordevops.com/) - Livre de référence
+- [Blog Jeff Geerling](https://www.jeffgeerling.com/blog) - Tutoriels Ansible
+- [DigitalOcean - Configuration Management with Ansible](https://www.digitalocean.com/community/tutorial_series/how-to-manage-configuration-with-ansible)
+- [LearnLinuxTV - Ansible Tutorial](https://www.learnlinux.tv/tag/ansible/)
+- [TechWorld with Nana - Ansible Tutorial](https://www.youtube.com/watch?v=1id6ERvfozo)
+
+### Outils et Références
+
+- [YAML Syntax](https://yaml.org/spec/1.2.2/) - Spécification YAML
+- [Ansible Galaxy](https://galaxy.ansible.com/) - Partage de rôles Ansible
+- [ShellCheck](https://www.shellcheck.net/) - Validateur de scripts shell
