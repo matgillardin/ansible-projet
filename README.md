@@ -459,16 +459,12 @@ ansible-playbook playbook.yml --limit webservers
 ---
 
 ### Documentation Systèmes d'exploitation
-
-
 ---
 
-### Tuto(Non-officiels)
+### Tuto et doc (Non-officiels)
 
 #### Ansible
-- [Ansible for DevOps (Jeff Geerling)](https://www.ansiblefordevops.com/) - Livre de référence
-- [Blog Jeff Geerling](https://www.jeffgeerling.com/blog) - Tutoriels Ansible
-- [DigitalOcean - Configuration Management with Ansible](https://www.digitalocean.com/community/tutorial_series/how-to-manage-configuration-with-ansible)
+- [DigitalOcean - Configuration Management with Ansible](https://www.digitalocean.com/community/tutorials/how-to-configure-apache-using-ansible-on-ubuntu-14-04)
 - [LearnLinuxTV - Ansible Tutorial](https://www.learnlinux.tv/tag/ansible/)
 - [TechWorld with Nana - Ansible Tutorial](https://www.youtube.com/watch?v=1id6ERvfozo)
 
@@ -476,4 +472,4 @@ ansible-playbook playbook.yml --limit webservers
 
 - [YAML Syntax](https://yaml.org/spec/1.2.2/) - Spécification YAML
 - [Ansible Galaxy](https://galaxy.ansible.com/) - Partage de rôles Ansible
-- [ShellCheck](https://www.shellcheck.net/) - Validateur de scripts shell
+
